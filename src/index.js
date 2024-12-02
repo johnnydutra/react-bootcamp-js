@@ -89,6 +89,10 @@ function Menu() {
 function Pizza(props) {
   const { ingredients, name, photoName, price, soldOut } = props.pizza;
 
+  if (soldOut) {
+    return null;
+  }
+
   return (
     <li className="pizza">
       <img src={photoName} alt={name} />
