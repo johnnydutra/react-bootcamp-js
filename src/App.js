@@ -1,6 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
-
 const initialFriends = [
   {
     id: 118836,
@@ -22,25 +19,49 @@ const initialFriends = [
   },
 ];
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="sidebar">
+        <FriendsList />
+      </div>
     </div>
   );
 }
 
-export default App;
+function FriendsList() {
+  const friends = initialFriends;
+
+  return (
+    <ul>
+      {friends.map((friend) => (
+        <Friend friend={friend} key={friend.id} />
+      ))}
+    </ul>
+  );
+}
+
+function Friend({ friend }) {
+  return (
+    <li>
+      <img src={friend.image} alt={friend.name} />
+      <h3>{friend.name}</h3>
+
+      {friend.balance < 0 && (
+        <p className="red">
+          You owe {friend.name} {Math.abs(friend.balance)}£
+        </p>
+      )}
+
+      {friend.balance === 0 && <p>You and {friend.name} are even</p>}
+
+      {friend.balance > 0 && (
+        <p className="green">
+          {friend.name} owes you {friend.balance}£
+        </p>
+      )}
+
+      <button className="button">Select</button>
+    </li>
+  );
+}
